@@ -8,13 +8,19 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+// adding the import statements for Provider to connect to the store 
+import { Provider } from 'react-redux';
+// link to store.js 
+import store from './utils/store';
+
+
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
-import { StoreProvider } from './utils/GlobalState';
+// import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 
@@ -36,13 +42,14 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-
+// changed from StoreProvider to Provider to lose the link to GlobalState
+// commented out line to import StoreProvider
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider>
+          <Provider>
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
@@ -53,7 +60,7 @@ function App() {
               <Route exact path="/products/:id" component={Detail} />
               <Route component={NoMatch} />
             </Switch>
-          </StoreProvider>
+          </Provider>
         </div>
       </Router>
     </ApolloProvider>
