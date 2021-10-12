@@ -49,7 +49,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <Provider>
+          <Provider store={store}>
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
